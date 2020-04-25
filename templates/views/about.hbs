@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>About</title>
+
+    <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <link rel="icon" href="/img/weather.png">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row row-header">
+            <div class="container">              
+                <div class="row  justify-content-center">
+                    <h1>{{title}}</h1>
+                </div>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/"><i class="fa fa-thermometer-empty" aria-hidden="true"></i>Weather</a>
+                            </li>
+                            <li class="nav-item active ">
+                                <a class="nav-link" href="/about"><i class="fa fa-user-o" aria-hidden="true"></i> About <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/help"><i class="fa fa-question-circle" aria-hidden="true"></i>Help</a>
+                            </li>    
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="row row-content">
+            <div class="col-12 col-sm-5">
+                <img src="/img/me.jpeg" alt="Responsive image" class="img-thumbnail">
+            </div>
+            <div class="col-12 col-sm-7">
+                <h4>Hey! I am Naman!</h3>
+                <h4>I am part-time backend web-developer, currently doing engineering in Information technology.</h4>
+                <h4>I read psychology and play guitar for fun.</h4>
+            </div>
+        </div>
+    <footer>
+        <p>Created by {{name}}</p>
+    </footer>   
+     <script src="/jquery/dist/jquery.slim.min.js"></script>
+     <script src="/popper.js/dist/umd/popper.min.js"></script>
+     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
