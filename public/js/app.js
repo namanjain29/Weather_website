@@ -1,7 +1,27 @@
 console.log('client side javascript file is loaded')
 
+// Making a map and tiles
+// Setting a higher initial zoom to make effect more obvious
+     
+const mymap = L.map('issMap').setView([0, 0], 6);
+const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const tiles = L.tileLayer(tileUrl, { attribution });
+tiles.addTo(mymap);
+
+let marker = L.marker([0, 0],).addTo(mymap);
+
+
+async function getLocMap(latitude, longitude) {
+    // Always set the view to current lat lon and zoom!
+    mymap.setView([latitude, longitude], mymap.getZoom());
+    marker.setLatLng([latitude, longitude]);
+}
+
+
 const weatherForm = document.querySelector('form')
 const search = document.querySelector('input')
+const messageZero = document.querySelector("#message-0") 
 const messageOne = document.querySelector("#message-1")
 const messageTwo = document.querySelector("#message-2")
 const messagethree = document.querySelector("#message-3")
@@ -13,7 +33,8 @@ weatherForm.addEventListener('submit',(event)=>{
     event.preventDefault()
     const location = search.value
 
-    messageOne.textContent = 'Loading....'
+    messageZero.textContent = 'Loading....'
+    messageOne.textContent = ''
     messageTwo.textContent = ''
     messagethree.textContent = ''
     messagefour.textContent = ''
@@ -36,11 +57,13 @@ func = function() {
 fetch('/weather?address='+ location).then((response)=>{
     response.json().then((data)=>{
         val = func()
+        messageZero.textContent = '' 
         if (data.error){
             messageOne.textContent = data.error
         }else{
-            messageOne.textContent = "Location : " + data.location
-            messageTwo.textContent = "Daily Summary : " + data.forecast.daily_summary
+            getLocMap(data.latitude, data.longitude);
+            messageOne.textContent = data.location
+            messageTwo.textContent = data.forecast.daily_summary
             
             if (val === "si"){
                 data.forecast.temperature = (data.forecast.temperature - 32)*(5/9)

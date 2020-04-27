@@ -110,9 +110,9 @@ input{
 .dropdown {
     position: relative;
     display: inline-block;
-  }
+}
   
-  .dropdown-content {
+.dropdown-content {
     display: none;
     background-color: #333333;
     position: absolute;
@@ -122,8 +122,26 @@ input{
     padding: 12px 16px;
     border-radius: 10px;
     z-index: 1;
-  }
-  .dropdown:hover .dropdown-content {
+    }
+    .dropdown:hover .dropdown-content {
     display: block;
-  }
-  
+    }
+
+    #issMap {
+    margin:20px;
+    height: 360px;
+}
+
+#options{
+    margin:auto;
+    padding: 2px;;
+}
+
+.card-header{
+    background-color:#3c5351;
+}
+
+.txt-c{
+    display: flex;
+  align-items: center
+}
