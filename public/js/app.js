@@ -27,9 +27,13 @@ const messageTwo = document.querySelector("#message-2")
 const messagethree = document.querySelector("#message-3")
 const messagefour = document.querySelector("#message-4")
 const messagefive = document.querySelector("#message-5")
+const mZero = document.querySelector("#m-0")
+const mOne = document.querySelector("#m-1")
+const mTwo = document.querySelector("#m-2")
+const mThree = document.querySelector("#m-3")
 
 
-weatherForm.addEventListener('submit', (event) => {
+weatherForm.addEventListener('submit', async (event) => {
     event.preventDefault()
     const location = search.value
 
@@ -40,6 +44,12 @@ weatherForm.addEventListener('submit', (event) => {
     messagefour.textContent = ''
     messagefive.textContent = ''
     var val = ""
+    mZero.textContent = 'Loading....'
+    mOne.textContent = ''
+    mTwo.textContent = ''
+    mThree.textContent = ''
+    // mfour.textContent = ''
+    // mfive.textContent = ''
 
     func = function () {
         var type = document.getElementsByName("type");
@@ -52,7 +62,7 @@ weatherForm.addEventListener('submit', (event) => {
         }
     }
 
-    fetch('/weather?address=' + location).then((response) => {
+    await fetch('/weather?address=' + location).then((response) => {
         response.json().then((data) => {
             val = func()
             messageZero.textContent = ''
@@ -73,6 +83,35 @@ weatherForm.addEventListener('submit', (event) => {
                 }
                 messagefour.textContent = data.forecast.humidity
                 messagefive.textContent = data.forecast.precipitation
+
+            }
+        })
+    })
+
+    await fetch('/aqi?address=' + location).then((response) => {
+        response.json().then((data) => {
+            mZero.textContent = ''
+            if (data.error) {
+                mOne.textContent = data.error
+            } else {
+                if (!data.forecast.results) {
+                    console.log("No Results Found")
+                }
+                else {
+                    const mesurements = data.forecast.results[0].measurements
+
+                    mOne.textContent = data.forecast.results[0].location
+                    for (i = 0; i < mesurements.length; i++) {
+                        if (mesurements[i].parameter == "no2") {
+                            mTwo.textContent = mesurements[i].value + " " + mesurements[i].unit
+                        }
+                        if (mesurements[i].parameter == "pm25") {
+                            mThree.textContent = mesurements[i].value + " " + mesurements[i].unit
+                        }
+                    }
+                }
+
+
 
             }
         })

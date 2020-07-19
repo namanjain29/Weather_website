@@ -3,6 +3,8 @@ const express = require('express')
 const hbs = require('hbs')
 const forecast = require('./utils/forecast')
 const geoCode = require('./utils/geocode')
+const aqi = require("./utils/aqi_forecast")
+const aqi_forecast = require('./utils/aqi_forecast')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -22,7 +24,7 @@ app.use(express.static(publicDirectoryPath))
 
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'Weather',
+        title: 'Weather & AQI',
         name: 'Naman Jain'
     })
 })
@@ -69,6 +71,31 @@ app.get('/weather', (req, res) => {
     }
 })
 
+app.get('/aqi', (req, res) => {
+    if (!req.query.address) {
+        res.send({
+            error: "Please provide the location!"
+        })
+    }
+    else {
+        geoCode(req.query.address, (error, data) => {
+            if (error) {
+                return res.send({ error })
+            }
+            aqi_forecast(data.latitude, data.longitude, (error, forecastdata) => {
+                if (error) {
+                    return res.send({ error })
+                }
+
+                res.send({
+                    location: data.location,
+                    forecast: forecastdata,
+                    address: req.query.address
+                })
+            })
+        })
+    }
+})
 
 app.get('/help/*', (req, res) => {
     res.render('404', {
