@@ -18,7 +18,7 @@ app.set('views', viewsPath)
 hbs.registerPartials(partialsPath)
 
 // Setup static directory to serve
-app.use(express.static(publicDirectoryPath))  
+app.use(express.static(publicDirectoryPath))
 
 app.get('', (req, res) => {
     res.render('index', {
@@ -43,19 +43,19 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/weather', (req, res) => {
-    if (!req.query.address){
+    if (!req.query.address) {
         res.send({
-            error:"Please provide the location!"
+            error: "Please provide the location!"
         })
     }
-    else{
-        geoCode(req.query.address,(error,data)=>{
-            if (error){
-                return res.send({error})
+    else {
+        geoCode(req.query.address, (error, data) => {
+            if (error) {
+                return res.send({ error })
             }
-            forecast(data.latitude, data.longitude,(error,forecastdata)=>{
-                if (error){
-                    return res.send({error})
+            forecast(data.latitude, data.longitude, (error, forecastdata) => {
+                if (error) {
+                    return res.send({ error })
                 }
                 res.send({
                     latitude: data.latitude,
